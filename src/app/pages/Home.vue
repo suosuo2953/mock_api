@@ -1,11 +1,12 @@
 <template>
-  <p>Welcome home, {{ msg }}</p>
+  
 </template>
 <script>
+  import { Button, Select } from 'element-ui';
   export default {
     data () {
       return {
-        msg: 'o hasdas',
+        msg: '',
       };
     },
   }; 
