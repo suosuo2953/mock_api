@@ -1,8 +1,7 @@
 import cheerio from 'cheerio';
 
-const parse = () => {
-  //const url = "http://music.baidu.com/songlist";
-  const $ = cheerio.load(body);
+const parse = (html) => {
+  const $ = cheerio.load(html);
   const songDoms = $(".songlist-list ul li");
   const songs = [];
   songDoms.each((i, ele) => {
@@ -13,6 +12,7 @@ const parse = () => {
       author: $(ele).find(".text-user a").text(),
     }
   });
-  const data = { songs };
-  return data;
+  return songs;
 }
+
+export default parse;
