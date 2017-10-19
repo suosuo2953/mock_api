@@ -9,6 +9,14 @@
       <ul class="play-list">
         <li v-for="song in songs" v-bind:key="song.author">
           <img v-bind:src="song.img" />
+          <div class="overlay">
+            <div class="play-icon-wrapper">
+              <i class="el-icon-caret-right"></i>
+            </div>
+          </div>
+          <p class="title">
+            <a href="">{{song.title}}</a>
+          </p>
         </li>
       </ul>
     </div>

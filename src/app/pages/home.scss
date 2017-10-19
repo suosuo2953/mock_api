@@ -1,8 +1,54 @@
 .home-page {
-  .play-list li {
-    img {
-      width: 100px;
-      height: 100px;
+  .play-list {
+    margin: 20px 0 0 200px; 
+    li {
+      position: relative;
+      .overlay {
+        display: none;
+        width: 140px;
+        height: 140px;
+        background: rgba(0, 0, 0, .5);
+        position: absolute;
+        top: 0;
+        .play-icon-wrapper {
+          text-align: center;
+          line-height: 40px;
+          width: 40px;
+          height: 40px;
+          border: 2px solid white;
+          border-radius: 50px;
+          margin: 0 auto;
+          margin-top: 50px;
+        }
+        .el-icon-caret-right {
+          color: white;
+        }
+      }
+      &:hover {
+        cursor: pointer; 
+        .overlay {
+          display: block;
+        }
+      }
+      width: 140px;
+      display: inline-block;
+      margin: 0 35px 15px 0;
+      vertical-align: top;
+      img {
+        width: 140px;
+        height: 140px;
+      }
+      .title{
+        margin-top: 5px;
+        a {
+          text-decoration: none;
+          color: black;
+          font-size: 14px;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
     }
   }
 }

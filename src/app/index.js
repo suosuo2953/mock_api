@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import Element from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
+import 'reset-css/reset.css';
 import App from './pages/MainLayout.vue';
 import router from './router';
 

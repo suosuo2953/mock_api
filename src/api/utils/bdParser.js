@@ -7,7 +7,7 @@ const parse = (html) => {
   songDoms.each((i, ele) => {
     songs[i] = {
       img: $(ele).find("img").attr("src"),
-      //num: $(ele).find(".num span").text(),
+      num: $(ele).find(".num span").text(),
       title: $(ele).find(".text-title a").text(),
       author: $(ele).find(".text-user a").text(),
     }

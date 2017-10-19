@@ -28,6 +28,7 @@
     "koa-static": "^4.0.1",
     "node-sass": "^4.5.3",
     "request": "^2.83.0",
+    "reset-css": "^2.2.1",
     "vue": "^2.4.4",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.0"
