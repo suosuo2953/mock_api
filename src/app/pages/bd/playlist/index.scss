@@ -1,0 +1,44 @@
+.bd-song-list {
+  font-size: 14px;
+  color: #333;
+  margin-left: 200px;
+  margin-top: 200px;
+  .song-list-container {
+    .song-list-header {
+      span {
+        display: inline-block;
+      }
+      .title {
+        width: 250px;
+        margin-left: 50px;
+      }
+      .singer {
+        width: 100px;
+      }
+    }
+    .song-list {
+      span {
+        display: inline-block;
+      }
+      li {
+        margin: 10px 0;
+        .play-icon {
+          cursor: pointer;
+          width: 18px;
+          height: 18px;
+          border: 2px solid #cec8c8;
+          border-radius: 10px;
+          text-align: center;
+          line-height: 17px;
+        }
+        .song-name {
+          margin-left: 25px;
+          width: 250px;
+        }
+      }
+      .el-icon-caret-right {
+        color: #cec8c8;
+      }
+    }
+  }
+}

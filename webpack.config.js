@@ -63,6 +63,11 @@ module.exports = {
         secure: false,
         changeOrigin: true,
       },
+      '/src': {
+        target: `http://localhost:7070`,
+        secure: false,
+        changeOrigin: true,        
+      }
     },
   },
   performance: {

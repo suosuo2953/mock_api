@@ -1,12 +1,27 @@
 import request from 'request';
+import http from 'http';
+import fs from 'fs';
 import cheerio from 'cheerio';
-import parse from '../utils/bdParser';
+import parser from '../utils/bdParser';
 
-const getPlayList = async (ctx, next) => {
+const getAlbumList = async (ctx, next) => {
   return new Promise((resolve, reject) => {
     const url = "http://music.baidu.com/songlist";
     request.get(url, (error, response, body) => {
-      const songs = parse(body);
+      const albums = parser.parseAlbumList(body);
+      const data = { albums };
+      ctx.body = data;
+      resolve();
+    });
+  });
+}
+
+const getSongList = async (ctx, next) => {
+  return new Promise((resolve, reject) => {
+    const albumId = ctx.params.albumId;
+    const url =  `http://music.baidu.com/songlist/${albumId}`;
+    request.get(url, (error, response, body) => {
+      const songs = parser.parseSongList(body);
       const data = { songs };
       ctx.body = data;
       resolve();
@@ -14,6 +29,30 @@ const getPlayList = async (ctx, next) => {
   });
 }
 
+const download = async (ctx, next) => {
+  return new Promise((resolve, reject) => {
+    const url = `http://music.baidu.com/data/music/fmlink?songIds=${ctx.params.songId}&type=mp3`;
+    request.get(url, (error, response, body) => {
+      const data = JSON.parse(body);
+      const mp3Url = data.data.songList[0].songLink;
+      http.get(mp3Url, (res) => {
+        let filename = decodeURIComponent(res.headers['content-disposition'].match(/filename="(.+)"/)[1]);
+        filename = filename.replace(".mp3", "");
+        const filePath = `/src/media/${filename}${new Date().getTime()}.mp3`;
+        const file = fs.createWriteStream("." + filePath);
+        res.pipe(file);
+        file.on('finish', function() {
+          file.close(next);
+          ctx.body = { mediaUrl: filePath };
+          resolve();
+        });
+      });
+    });
+  });
+}
+
 export default {
-  getPlayList
+  getAlbumList,
+  getSongList,
+  download
 };

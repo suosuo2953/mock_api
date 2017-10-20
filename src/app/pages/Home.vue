@@ -7,16 +7,18 @@
     </el-menu>
     <div>
       <ul class="play-list">
-        <li v-for="song in songs" v-bind:key="song.author">
-          <img v-bind:src="song.img" />
-          <div class="overlay">
-            <div class="play-icon-wrapper">
-              <i class="el-icon-caret-right"></i>
+        <li v-for="album in albums" v-bind:key="album.id">
+          <a v-bind:href="'/bd/songlist/' + album.id">
+            <img v-bind:src="album.img" />
+            <div class="overlay">
+              <div class="play-icon-wrapper">
+                <i class="el-icon-caret-right"></i>
+              </div>
             </div>
-          </div>
-          <p class="title">
-            <a href="">{{song.title}}</a>
-          </p>
+            <p class="title">
+              <a href="">{{album.title}}</a>
+            </p>
+          </a>
         </li>
       </ul>
     </div>
@@ -31,13 +33,12 @@
     data () {
       return {
         activeIndex: '1',
-        songs: [],
+        albums: [],
       };
     },
     created: function() {
-      axios.get('/wrq/bd/playlist').then(response => {
-        this.songs = response.data.songs;
-        console.log(this.songs);
+      axios.get('/wrq/bd/albumlist').then(response => {
+        this.albums = response.data.albums;
       });
     },
     methods: {
