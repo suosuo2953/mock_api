@@ -22,23 +22,29 @@
 <script>
   import { Loading } from 'element-ui';
   import axios from 'axios';
+  import { mapState, mapActions, mapGetters } from 'vuex'
   import './home.scss';
 
   export default {
     data () {
       return {
-        albums: [],
-        fullscreenLoading: true,
       };
     },
-    created: function() {
-      const loading = Loading.service({ fullscreen: true, text: '拼命加载中...' });
-      axios.get('/wrq/bd/albumlist').then(response => {
-        this.albums = response.data.albums;
-        loading.close();
-      });
+    computed: {
+      ...mapGetters({
+        albums: 'albums',
+      }),
     },
-    components: { 'el-loading': Loading },
+    created: function() {
+      this.getAlbums();
+    },
+    methods: {
+      handleSelect (key, keyPath) {},
+      ...mapActions({
+        getAlbums: 'getAlbums',
+      }),
+    },
+    components: { "el-menu": Menu, "el-menu-item": MenuItem, "el-submenu": Submenu },
   }; 
 </script>
 <style>
