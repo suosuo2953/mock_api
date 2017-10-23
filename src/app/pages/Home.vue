@@ -27,22 +27,28 @@
 <script>
   import { Menu, MenuItem, Submenu } from 'element-ui';
   import axios from 'axios';
+  import { mapState, mapActions, mapGetters } from 'vuex'
   import './home.scss';
 
   export default {
     data () {
       return {
         activeIndex: '1',
-        albums: [],
       };
     },
+    computed: {
+      ...mapGetters({
+        albums: 'albums',
+      }),
+    },
     created: function() {
-      axios.get('/wrq/bd/albumlist').then(response => {
-        this.albums = response.data.albums;
-      });
+      this.getAlbums();
     },
     methods: {
-      handleSelect (key, keyPath) {}
+      handleSelect (key, keyPath) {},
+      ...mapActions({
+        getAlbums: 'getAlbums',
+      }),
     },
     components: { "el-menu": Menu, "el-menu-item": MenuItem, "el-submenu": Submenu },
   }; 
