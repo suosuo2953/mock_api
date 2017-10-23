@@ -1,8 +1,5 @@
 <template>
   <div class="bd-song-list"> 
-    <audio v-bind:src="currentMediaUrl" controls>
-      <p>If you are reading this, it is because your browser does not support the audio element.</p>
-    </audio>
     <div class="song-list-container">
       <div class="song-list-header">
         <span class="title">歌曲标题</span>
@@ -16,11 +13,13 @@
         </li>
       </ul>
     </div>
+    
   </div>
 </template>
 
 <script>
   import axios from 'axios';
+  import Player from '../../../components/player/index.js';
   import './index.scss';
 
   export default {
@@ -41,6 +40,7 @@
       axios.get(`/wrq/bd/songlist/${this.$route.params.albumId}`).then(response => {
         this.songs = response.data.songs;
       });
-    }
+    },
+    components: { 'player': Player },
   };
 </script>

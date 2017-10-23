@@ -1,8 +1,11 @@
 .home-page {
   .play-list {
-    margin: 20px 0 0 200px; 
+    padding: 20px 0 0 60px; 
     li {
       position: relative;
+      a {
+        text-decoration: none;
+      }
       .overlay {
         display: none;
         width: 140px;
@@ -32,7 +35,7 @@
       }
       width: 140px;
       display: inline-block;
-      margin: 0 35px 15px 0;
+      margin: 0 40px 15px 0;
       vertical-align: top;
       img {
         width: 140px;
@@ -40,7 +43,7 @@
       }
       .title{
         margin-top: 5px;
-        a {
+        span {
           text-decoration: none;
           color: black;
           font-size: 14px;
