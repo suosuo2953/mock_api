@@ -1,0 +1,1 @@
+export { default as AlbumCategoryPicker } from './AlbumCategoryPicker/index.vue';
