@@ -46,7 +46,6 @@
         getAlbums: 'getAlbums',
       }),
     },
-    components: { "el-menu": Menu, "el-menu-item": MenuItem, "el-submenu": Submenu },
   }; 
 </script>
 <style>
