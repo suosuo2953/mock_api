@@ -2,9 +2,9 @@ import cheerio from 'cheerio';
 
 const parseAlbumList = (html) => {
   const $ = cheerio.load(html);
-  const donList = $(".songlist-list ul li");
+  const domList = $(".songlist-list ul li");
   const albums = [];
-  donList.each((i, ele) => {
+  domList.each((i, ele) => {
     const id = $(ele).find(".text-title a").attr("href").replace("/songlist/", "");
     albums[i] = {
       id,
@@ -14,7 +14,20 @@ const parseAlbumList = (html) => {
       author: $(ele).find(".text-user a").text(),
     }
   });
-  return albums;
+
+  const categoryDoms = $(".songlist-tag dl");
+  const categories = [];
+  categoryDoms.each((i, ele) => {
+    const category = { name: $(ele).find('dt').text() };
+    const typeDoms = $(ele).find('dd a');
+    const types = [];
+    typeDoms.each((n, tempEle) => {
+      types[n] = $(tempEle).text(); 
+    });
+    category.types = types;
+    categories[i] = category;
+  });
+  return { albums, categories };
 }
 
 const parseSongList = (html) => {

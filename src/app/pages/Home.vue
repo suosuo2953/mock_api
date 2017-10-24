@@ -6,6 +6,7 @@
       <el-menu-item index="3">虾米音乐</el-menu-item>
     </el-menu>
     <div>
+      <album-category-picker :categories="categories" />
       <ul class="play-list">
         <li v-for="album in albums" v-bind:key="album.id">
           <a v-bind:href="'/bd/songlist/' + album.id">
@@ -39,6 +40,7 @@
     computed: {
       ...mapGetters({
         albums: 'albums',
+        categories: 'categories',
       }),
     },
     created: function() {

@@ -2,15 +2,16 @@ import request from 'request';
 import http from 'http';
 import fs from 'fs';
 import cheerio from 'cheerio';
+import constants from '../constants';
 import parser from '../utils/bdParser';
 
 const getAlbumList = async (ctx, next) => {
   return new Promise((resolve, reject) => {
-    const url = "http://music.baidu.com/songlist";
+    const queryParam = ctx.request.query;
+    const url = `${constants.BAIDU_ALBUMS_URL}/${queryParam.tag}?orderType=${queryParam.orderType}`;
     request.get(url, (error, response, body) => {
-      const albums = parser.parseAlbumList(body);
-      const data = { albums };
-      ctx.body = data;
+      const result = parser.parseAlbumList(body);
+      ctx.body = result;
       resolve();
     });
   });
