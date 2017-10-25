@@ -27,7 +27,12 @@ const parseAlbumList = (html) => {
     category.types = types;
     categories[i] = category;
   });
-  return { albums, categories };
+  const pageInfo = $(".page_wiget .page-navigator-hook").attr("class");
+  const startIndex = pageInfo.indexOf("'total':");
+  const endIndex = pageInfo.indexOf(", 'size'");
+  let total = pageInfo.substring(startIndex, endIndex);
+  total = parseInt(total.replace("'total':", ''));
+  return { albums, categories, total };
 }
 
 const parseSongList = (html) => {

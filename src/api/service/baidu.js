@@ -8,7 +8,7 @@ import parser from '../utils/bdParser';
 const getAlbumList = async (ctx, next) => {
   return new Promise((resolve, reject) => {
     const queryParam = ctx.request.query;
-    const url = `${constants.BAIDU_ALBUMS_URL}/${queryParam.tag}?orderType=${queryParam.orderType}`;
+    const url = `${constants.BAIDU_ALBUMS_URL}/${encodeURIComponent(queryParam.tag)}?orderType=${queryParam.orderType}&offset=${queryParam.offset}`;
     request.get(url, (error, response, body) => {
       const result = parser.parseAlbumList(body);
       ctx.body = result;

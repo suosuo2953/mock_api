@@ -1,3 +1,50 @@
 #album-category-picker {
-  
+
+}
+.category-popover {
+  padding: 20px !important;
+  h1 {
+    padding-left: 25px;
+  }
+  .boundary {
+    border-bottom: 1px solid #e6e6e6;
+    margin-top: 15px;
+  }
+  .category-name {
+    float: left;
+    display: inline;
+    width: 70px;
+    margin: 0 -100px 0 26px;
+    padding-top: 20px;
+    border-right: 1px solid #e6e6e6;
+    font-weight: bold;
+  }
+  .type-container {
+    margin-left: 96px;
+    padding: 16px 15px 0 15px;
+    border-left: 1px solid #e6e6e6;
+    line-height: 24px;
+    > span {
+      white-space: nowrap;
+      display: inline-block;
+    }
+  }
+  .type-value {
+    white-space: nowrap;
+    cursor: pointer;
+    color: #333;
+    text-decoration: none;
+    &.active {
+      background: #a7a7a7;
+      padding: 2px 6px;
+      color: #fff;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .line {
+    margin: 0 8px 0 8px;
+    color: #d8d8d8;
+  }
 }

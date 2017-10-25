@@ -5,6 +5,7 @@ const state = {
   albums: [],
   categories: [],
   songs: [],
+  total: 0,
 };
 
 const getters = {
@@ -13,23 +14,29 @@ const getters = {
   },
   categories: (state) => {
     return state.categories;
+  },
+  total: (state) => {
+    return state.total;
   }
 };
 
 const actions = {
   getAlbums ({ commit, state }, params) {
-    axios.get('/wrq/bd/albumlist?tag=全部&orderType=0').then(response => {
+    const url = `/wrq/bd/albumlist?tag=${params.tag}&orderType=${params.orderType}&offset=${params.offset}`;
+    axios.get(url).then(response => {
       const albums = response.data.albums;
       const categories = response.data.categories;
-      commit(types.GET_ALBUM_DATA, { albums, categories });
+      const total = response.data.total;
+      commit(types.GET_ALBUM_DATA, { albums, categories, total });
     });
   }
 };
 
 const mutations = {
-  [types.GET_ALBUM_DATA](state, { albums, categories }) {
+  [types.GET_ALBUM_DATA](state, { albums, categories, total }) {
     state.albums = albums;
     state.categories = categories;
+    state.total = total;
   },
 };
 

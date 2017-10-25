@@ -1,17 +1,25 @@
 <template>
-  <div id="album-category-picker">
+  <div id="album-category-picker" v-bind:class="className">
     <el-popover
       ref="cat-popover"
       placement="bottom-start"
-      popper-class=""
+      popper-class="category-popover"
+      v-model="popoverVisible"
       width="720">
       <h1>
-        <el-button size="mini">全部风格</el-button>
+        <el-button size="mini" v-on:click="changeType('全部')">全部风格</el-button>
       </h1>
+      <div class="boundary"></div>
       <dl v-for="category in categories" :key="category.name">
-        <dt>{{category.name}}</dt>
-        <dd>
-          <el-button v-for="type in category.types" :key="type" size="mini">{{type}}</el-button>
+        <dt class="category-name">{{category.name}}</dt>
+        <dd class="type-container">
+          <span v-for="type in category.types" :key="type">
+            <a href="javascript:void(0)"
+               class="type-value"
+               v-bind:class="{ active: curType == type }"
+               v-on:click="changeType(type)">{{type}}</a>
+            <span class="line">|</span>
+          </span>
         </dd>
       </dl>
     </el-popover>
@@ -26,8 +34,18 @@
     name: 'album-category-picker',
     components: { 'el-button': Button, 'el-popover': Popover },
     data: function() {
-      return {};
+      return {
+        curType: '全部',
+        popoverVisible: false,
+      };
     },
-    props: ['categories'],
+    props: ['categories', 'className'],
+    methods: {
+      changeType: function(type) {
+        this.curType = type;
+        this.popoverVisible = false;
+        this.$emit('changeType', type);
+      },
+    },
   }
 </script>
