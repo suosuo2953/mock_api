@@ -35,18 +35,29 @@ const parseAlbumList = (html) => {
   return { albums, categories, total };
 }
 
-const parseSongList = (html) => {
+const parseAlbumInfo = (html) => {
   const $ = cheerio.load(html);
   const domList = $(".songlist-list ul li");
   const songs = [];
   domList.each((i, ele) => {
     const json = $(ele).attr("data-songitem");
-    songs[i] = JSON.parse(json);
+    const song = JSON.parse(json);
+    song.album = $(ele).find(".album-title a").attr("title");
+    songs[i] = song;
   });
-  return songs;
+  const img = $(".songlist-info-pic img").attr("src");
+  const title = $(".songlist-info-songlisttitle").text();
+
+  const tagDoms = $(".songlist-info-tag a");
+  const tags = [];
+  tagDoms.each((i, ele) => {
+    tags[i] = $(ele).text();
+  });
+  const desc = $(".songlist-info-desc-text").text();
+  return { songs, img, title, tags, desc };
 }
 
 export default {
   parseAlbumList,
-  parseSongList
+  parseAlbumInfo,
 };

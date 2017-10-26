@@ -1,31 +1,55 @@
 <template>
-  <div class="bd-song-list"> 
-    <div class="song-list-container">
-      <div class="song-list-header">
-        <span class="title">歌曲标题</span>
-        <span class="singer">歌手</span>
+  <div class="album-detail"> 
+    <div class="playlist-container">
+      <div class="info">
+        <div class="cover">
+          <img :src="albumInfo.img" />
+        </div>
+        <div class="detail">
+          <div class="title">{{albumInfo.title}}</div>
+          <div class="tags">
+            <span>标签:</span><el-button disabled size="mini" v-for="tag in albumInfo.tags" :key="tag">{{tag}}</el-button>
+          </div>
+          <div class="desc">
+            介绍:{{albumInfo.desc}}
+          </div>
+        </div>
+        <div class="clear"></div>
       </div>
-      <ul class="song-list">
-        <li v-for="song in songs" v-bind:key="song.songItem.sid">
-          <span class="play-icon" v-on:click="getMediaFile(song.songItem.sid)"><i class="el-icon-caret-right"/></span>
-          <span class="song-name">{{song.songItem.sname}}</span>
-          <span class="song-singer">{{song.songItem.author}}</span>
-        </li>
-      </ul>
+      <div class="playlist">
+        <div>
+          <span class="text">歌曲列表</span>
+          <span class="number">{{albumInfo.songs.length}}首歌</span>
+        </div>
+        <div class="header">
+          <span class="name">歌曲</span>
+          <span class="singer">歌手</span>
+          <span class="album">专辑</span>
+        </div>
+        <ul class="song-list">
+          <li v-for="(song, index) in albumInfo.songs" v-bind:key="song.songItem.sid" :class="{ odd: index % 2 != 0 }">
+            <span class="index">{{index + 1}}</span>
+            <span class="name">{{song.songItem.sname}}</span>
+            <span class="singer" :title="song.songItem.author">{{song.songItem.author}}</span>
+            <span class="album" :title="song.album">{{song.album}}</span>
+          </li>
+        </ul>
+      </div>
     </div>
-    
+    <div class="others"></div>
+    <my-player />
   </div>
 </template>
 
 <script>
   import axios from 'axios';
-  import Player from '../../../components/player/index.js';
+  import {  mapActions, mapGetters } from 'vuex'
+  import { Button } from 'element-ui';
   import './index.scss';
 
   export default {
     data: function() {
       return {
-        songs: [],
         currentMediaUrl: '',
       };
     },
@@ -33,14 +57,22 @@
       getMediaFile: function(mediaId) {
         axios.get(`/wrq/bd/download/${mediaId}`).then(response => {
           this.currentMediaUrl = response.data.mediaUrl;
+          console.log('currentMediaUrl:', this.currentMediaUrl);
         });
       },
+      ...mapActions({
+        getAlbumInfo: 'getAlbumInfo',
+      }),
     },
     created: function() {
-      axios.get(`/wrq/bd/songlist/${this.$route.params.albumId}`).then(response => {
-        this.songs = response.data.songs;
-      });
+      this.getAlbumInfo(this.$route.params.albumId);
+      //this.getMediaFile(30675626);
     },
-    components: { 'player': Player },
+    computed: {
+      ...mapGetters({
+        albumInfo: 'albumInfo',
+      }),
+    },
+    components: { 'el-button': Button },
   };
 </script>

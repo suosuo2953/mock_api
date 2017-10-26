@@ -6,7 +6,7 @@ const router = new Router();
 router.get('/bd/albumlist', baidu.getAlbumList);
 
 // 歌单歌曲列表
-router.get('/bd/songlist/:albumId', baidu.getSongList);
+router.get('/bd/albuminfo/:albumId', baidu.getAlbumInfo);
 
 router.get('/bd/download/:songId', baidu.download);
 export default router;

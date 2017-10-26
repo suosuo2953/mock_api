@@ -42,8 +42,8 @@
 <script>
   import { Loading, Pagination, Radio, RadioGroup, RadioButton } from 'element-ui';
   import axios from 'axios';
-  import { mapState, mapActions, mapGetters } from 'vuex'
-  import './home.scss';
+  import {  mapActions, mapGetters } from 'vuex'
+  import './index.scss';
 
   export default {
     data () {

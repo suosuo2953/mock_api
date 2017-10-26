@@ -17,14 +17,13 @@ const getAlbumList = async (ctx, next) => {
   });
 }
 
-const getSongList = async (ctx, next) => {
+const getAlbumInfo = async (ctx, next) => {
   return new Promise((resolve, reject) => {
     const albumId = ctx.params.albumId;
-    const url =  `http://music.baidu.com/songlist/${albumId}`;
+    const url = `${constants.BAIDU_ALBUM_DETAIL_URL}${albumId}`;
     request.get(url, (error, response, body) => {
-      const songs = parser.parseSongList(body);
-      const data = { songs };
-      ctx.body = data;
+      const album = parser.parseAlbumInfo(body);
+      ctx.body = album;
       resolve();
     });
   });
@@ -54,6 +53,6 @@ const download = async (ctx, next) => {
 
 export default {
   getAlbumList,
-  getSongList,
-  download
+  getAlbumInfo,
+  download,
 };

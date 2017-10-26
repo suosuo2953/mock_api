@@ -1,8 +1,8 @@
 import Vue from 'Vue';
 import VueRouter from 'vue-router';
-import Home from './pages/Home.vue';
+import BD_AlbumList from './pages/BD_AlbumList/index.vue';
 import About from './pages/About.vue';
-import BdSongList from './pages/bd/playlist/PlayList.vue';
+import BdSongList from './pages/BD/PlayList/PlayList.vue';
 
 const router = new VueRouter({
   mode: 'history',
@@ -10,7 +10,7 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: Home,
+      component: BD_AlbumList,
     },
     {
       path: '/about',

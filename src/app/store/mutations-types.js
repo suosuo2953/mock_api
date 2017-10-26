@@ -1,2 +1,2 @@
-export const TEST = 'TEST';
-export const GET_ALBUM_DATA = 'GET_ALBUM_DATA';
+export const GET_ALBUM_LIST = 'GET_ALBUM_LIST';
+export const GET_ALBUM_INFO = 'GET_ALBUM_INFO';

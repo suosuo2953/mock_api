@@ -6,6 +6,7 @@ const state = {
   categories: [],
   songs: [],
   total: 0,
+  albumInfo: { songs: [], title: '', img: '', tags: [] },
 };
 
 const getters = {
@@ -17,6 +18,9 @@ const getters = {
   },
   total: (state) => {
     return state.total;
+  },
+  albumInfo: () => {
+    return state.albumInfo;
   }
 };
 
@@ -27,16 +31,26 @@ const actions = {
       const albums = response.data.albums;
       const categories = response.data.categories;
       const total = response.data.total;
-      commit(types.GET_ALBUM_DATA, { albums, categories, total });
+      commit(types.GET_ALBUM_LIST, { albums, categories, total });
     });
-  }
+  },
+  getAlbumInfo ({ commit, state }, albumId) {
+    const url = `/wrq/bd/albuminfo/${albumId}`;
+    axios.get(url).then(response => {
+      const albumInfo = response.data;
+      commit(types.GET_ALBUM_INFO, albumInfo);
+    });
+  },
 };
 
 const mutations = {
-  [types.GET_ALBUM_DATA](state, { albums, categories, total }) {
+  [types.GET_ALBUM_LIST](state, { albums, categories, total }) {
     state.albums = albums;
     state.categories = categories;
     state.total = total;
+  },
+  [types.GET_ALBUM_INFO](state, albumInfo) {
+    state.albumInfo = albumInfo;
   },
 };
 
