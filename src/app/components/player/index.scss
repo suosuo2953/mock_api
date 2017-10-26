@@ -1,0 +1,14 @@
+.my-player {
+  .icon {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .play {
+    background-image: url(./images/play.png);
+  }
+  .pause {
+    background-image: url(./images/pause.png);
+  }
+}
