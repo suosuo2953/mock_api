@@ -16,6 +16,7 @@
         </div>
         <div class="clear"></div>
       </div>
+      <my-player :audioInfo="audioInfo" />
       <div class="playlist">
         <div>
           <span class="text">歌曲列表</span>
@@ -37,7 +38,6 @@
       </div>
     </div>
     <div class="others"></div>
-    <my-player />
   </div>
 </template>
 
@@ -51,13 +51,17 @@
     data: function() {
       return {
         currentMediaUrl: '',
+        audioInfo: {
+          url: '/src/media/I Need Your Love1509006630434.mp3',
+          name: '测试歌曲',
+          singer: '薛之谦',
+          time: 320 },
       };
     },
     methods: {
       getMediaFile: function(mediaId) {
         axios.get(`/wrq/bd/download/${mediaId}`).then(response => {
           this.currentMediaUrl = response.data.mediaUrl;
-          console.log('currentMediaUrl:', this.currentMediaUrl);
         });
       },
       ...mapActions({
