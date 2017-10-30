@@ -12,7 +12,7 @@ app.use(Logger());
 app.use(router.routes());
 app.use(async (ctx, next) => {
   const url = ctx.url;
-  if (url.indexOf("wrq") == -1) {    
+  if (url.indexOf("api") == -1) {    
     await send(ctx, url);
   }
   await next();

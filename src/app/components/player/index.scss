@@ -12,14 +12,32 @@
     height: 32px;
     cursor: pointer;
     display: inline-block;
-  }
-  .volumn {
-    background-image: url(./images/volumn.png);
-    background-size: 20px;
     background-repeat: no-repeat;
   }
+  .pre {
+    background-image: url(./images/player-prev.png);
+    background-size: 24px;
+    background-position: center;
+  }
+  .next {
+    background-image: url(./images/player-next.png);
+    background-size: 24px;
+    background-position: center;
+  }
+  .volume-no {
+    background-image: url(./images/volume-no.png);
+    background-size: 20px;
+  }
+  .volume-low {
+    background-image: url(./images/volume-low.png);
+    background-size: 20px;
+  }
+  .volume-louder {
+    background-image: url(./images/volume-louder.png);
+    background-size: 20px;
+  }
   .play {
-    background-image: url(./images/play.png);
+    background-image: url(./images/player.png);
   }
   .pause {
     background-image: url(./images/pause.png);
@@ -27,8 +45,12 @@
   .body {
     display: inline-block;
     vertical-align: top;
-    width: 500px;
+    width: 50%;
     margin-left: 20px;
+    .progress {
+      position: relative;
+      top: 10px;
+    }
     .info {
       font-size: 12px;
       top: 10px;
@@ -48,7 +70,7 @@
     vertical-align: top;
     font-size: 12px;
     position: relative;
-    top: 23px;
+    top: 25px;
     left: 10px;
     .past-time {
       color: #a1a1a1;
@@ -60,7 +82,7 @@
   .volum-part {
     display: inline-block;
     position: relative;
-    top: 18px;
+    top: 20px;
     left: 20px;
     .volum-progress {
       position: absolute;

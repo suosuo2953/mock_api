@@ -1,9 +1,9 @@
 <template>
-  <div class="album-detail"> 
+  <div class="album-detail">
     <div class="playlist-container">
       <div class="info">
-        <div class="cover">
-          <img :src="albumInfo.img" />
+        <div class="cover" v-bind:class="{'default': !albumInfo.img}">
+          <img v-if="albumInfo.img" :src="albumInfo.img"/>
         </div>
         <div class="detail">
           <div class="title">{{albumInfo.title}}</div>
@@ -16,7 +16,6 @@
         </div>
         <div class="clear"></div>
       </div>
-      <my-player :audioInfo="audioInfo" />
       <div class="playlist">
         <div>
           <span class="text">歌曲列表</span>
@@ -30,6 +29,7 @@
         <ul class="song-list">
           <li v-for="(song, index) in albumInfo.songs" v-bind:key="song.songItem.sid" :class="{ odd: index % 2 != 0 }">
             <span class="index">{{index + 1}}</span>
+            <span class="play-icon"></span>
             <span class="name">{{song.songItem.sname}}</span>
             <span class="singer" :title="song.songItem.author">{{song.songItem.author}}</span>
             <span class="album" :title="song.album">{{song.album}}</span>
@@ -38,6 +38,12 @@
       </div>
     </div>
     <div class="others"></div>
+    <div class="player-container">
+      <div class="wrapper">
+        <my-player :audioInfo="audioInfo" />
+      </div>
+      <div></div>
+    </div>
   </div>
 </template>
 
@@ -51,9 +57,10 @@
     data: function() {
       return {
         currentMediaUrl: '',
+        defaultCover: './images/music.png',
         audioInfo: {
-          url: '/src/media/I Need Your Love1509006630434.mp3',
-          name: '测试歌曲',
+          url: '/src/media/你还要我怎样.mp3',
+          name: '你还要我怎样',
           singer: '薛之谦',
           time: 320 },
       };

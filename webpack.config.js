@@ -58,7 +58,7 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     proxy: {
-      '/wrq': {
+      '/api': {
         target: `http://localhost:7070`,
         secure: false,
         changeOrigin: true,

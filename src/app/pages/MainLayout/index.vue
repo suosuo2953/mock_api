@@ -14,7 +14,6 @@
   export default {
     components: { "my-footer": Footer, "my-header": Header },
     mounted: function() {
-      console.log('mounted calculate minheight......');
       const headerHeight = document.getElementsByClassName('my-header')[0].clientHeight;
       const footerHeight = document.getElementsByClassName('my-footer')[0].clientHeight;
       const minHeight = window.innerHeight - headerHeight - footerHeight;

@@ -48,11 +48,13 @@
   export default {
     data () {
       return {
+        loading: true,
         curType: '全部',
         pageSize: 20,
         curPage: 1,
         switchValue: '热门',
         switchObject: { '热门': 1 , '最新': 0 },
+        loading: Loading.service(),
       };
     },
     computed: {
@@ -63,7 +65,12 @@
       }),
     },
     created: function() {
-      this.getAlbums({ tag: this.curType, offset: (this.curPage - 1) * this.pageSize, orderType: this.switchObject[this.switchValue] });
+      const params = { tag: this.curType, offset: (this.curPage - 1) * this.pageSize, orderType: this.switchObject[this.switchValue] };
+      this.getAlbums(params).then(() => {
+        setTimeout(() => {
+          this.loading.close();
+        }, 600);
+      });
     },
     methods: {
       handleSelect (key, keyPath) {},

@@ -26,7 +26,7 @@ const getters = {
 
 const actions = {
   getAlbums ({ commit, state }, params) {
-    const url = `/wrq/bd/albumlist?tag=${params.tag}&orderType=${params.orderType}&offset=${params.offset}`;
+    const url = `/api/bd/albumlist?tag=${params.tag}&orderType=${params.orderType}&offset=${params.offset}`;
     axios.get(url).then(response => {
       const albums = response.data.albums;
       const categories = response.data.categories;
@@ -35,7 +35,7 @@ const actions = {
     });
   },
   getAlbumInfo ({ commit, state }, albumId) {
-    const url = `/wrq/bd/albuminfo/${albumId}`;
+    const url = `/api/bd/albuminfo/${albumId}`;
     axios.get(url).then(response => {
       const albumInfo = response.data;
       commit(types.GET_ALBUM_INFO, albumInfo);

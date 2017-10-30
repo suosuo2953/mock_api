@@ -6,6 +6,7 @@ import constants from '../constants';
 import parser from '../utils/bdParser';
 
 const getAlbumList = async (ctx, next) => {
+  console.log(1111);
   return new Promise((resolve, reject) => {
     const queryParam = ctx.request.query;
     const url = `${constants.BAIDU_ALBUMS_URL}/${encodeURIComponent(queryParam.tag)}?orderType=${queryParam.orderType}&offset=${queryParam.offset}`;
@@ -18,6 +19,7 @@ const getAlbumList = async (ctx, next) => {
 }
 
 const getAlbumInfo = async (ctx, next) => {
+  console.log(2222);
   return new Promise((resolve, reject) => {
     const albumId = ctx.params.albumId;
     const url = `${constants.BAIDU_ALBUM_DETAIL_URL}${albumId}`;
