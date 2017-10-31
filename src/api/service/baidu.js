@@ -19,7 +19,6 @@ const getAlbumList = async (ctx, next) => {
 }
 
 const getAlbumInfo = async (ctx, next) => {
-  console.log(2222);
   return new Promise((resolve, reject) => {
     const albumId = ctx.params.albumId;
     const url = `${constants.BAIDU_ALBUM_DETAIL_URL}${albumId}`;
@@ -33,10 +32,11 @@ const getAlbumInfo = async (ctx, next) => {
 
 const download = async (ctx, next) => {
   return new Promise((resolve, reject) => {
-    const url = `http://music.baidu.com/data/music/fmlink?songIds=${ctx.params.songId}&type=mp3`;
+    const url = `${constants.BAIDU_SONG_DETAIL}${ctx.params.songId}&type=mp3`;
     request.get(url, (error, response, body) => {
       const data = JSON.parse(body);
-      const mp3Url = data.data.songList[0].songLink;
+      const song = data.data.songList[0];
+      const mp3Url = song.songLink;
       http.get(mp3Url, (res) => {
         let filename = decodeURIComponent(res.headers['content-disposition'].match(/filename="(.+)"/)[1]);
         filename = filename.replace(".mp3", "");
@@ -45,7 +45,7 @@ const download = async (ctx, next) => {
         res.pipe(file);
         file.on('finish', function() {
           file.close(next);
-          ctx.body = { mediaUrl: filePath };
+          ctx.body = { url: filePath, name: song.songName, singer: song.artistName, time: song.time, pic: song.songPicRadio };
           resolve();
         });
       });

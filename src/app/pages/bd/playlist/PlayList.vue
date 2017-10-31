@@ -29,7 +29,7 @@
         <ul class="song-list">
           <li v-for="(song, index) in albumInfo.songs" v-bind:key="song.songItem.sid" :class="{ odd: index % 2 != 0 }">
             <span class="index">{{index + 1}}</span>
-            <span class="play-icon"></span>
+            <span class="play-icon" v-on:click="play(song.songItem.sid)"></span>
             <span class="name">{{song.songItem.sname}}</span>
             <span class="singer" :title="song.songItem.author">{{song.songItem.author}}</span>
             <span class="album" :title="song.album">{{song.album}}</span>
@@ -40,7 +40,7 @@
     <div class="others"></div>
     <div class="player-container">
       <div class="wrapper">
-        <my-player :audioInfo="audioInfo" />
+        <my-player :audioInfo="songInfo" />
       </div>
       <div></div>
     </div>
@@ -58,30 +58,29 @@
       return {
         currentMediaUrl: '',
         defaultCover: './images/music.png',
-        audioInfo: {
-          url: '/src/media/你还要我怎样.mp3',
-          name: '你还要我怎样',
-          singer: '薛之谦',
-          time: 320 },
+        // audioInfo: {
+        //   url: '/src/media/你还要我怎样.mp3',
+        //   name: '你还要我怎样',
+        //   singer: '薛之谦',
+        //   time: 320 },
       };
     },
     methods: {
-      getMediaFile: function(mediaId) {
-        axios.get(`/wrq/bd/download/${mediaId}`).then(response => {
-          this.currentMediaUrl = response.data.mediaUrl;
-        });
-      },
       ...mapActions({
         getAlbumInfo: 'getAlbumInfo',
+        getSongInfo: 'getSongInfo',
       }),
+      play: function(songId) {
+        this.getSongInfo(songId);
+      },
     },
     created: function() {
       this.getAlbumInfo(this.$route.params.albumId);
-      //this.getMediaFile(30675626);
     },
     computed: {
       ...mapGetters({
         albumInfo: 'albumInfo',
+        songInfo: 'songInfo',
       }),
     },
     components: { 'el-button': Button },

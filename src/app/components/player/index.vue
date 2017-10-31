@@ -126,12 +126,22 @@
         const secondsPart = seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60;
         return `${minutes}:${secondsPart}`;
       },
-      changeProgress: function(val) {
-        console.log('currentTime', this.audio.currentTime);
-      },
+      changeProgress: function(val) {},
       changeVolumn: function() {
         this.audio.volume = this.volume;
       },
+      playPre: function() {
+
+      },
+      playNext: function() {
+
+      },
+    },
+    beforeUpdate: function() {
+      console.log('....');
+      this.audioStatus = AUDIO_STATUS.INIT; 
+      clearInterval(this.interval);
+      this.duration = 0;
     },
     components: { 'el-slider': Slider, 'vue-slider': VueSlider },
   }

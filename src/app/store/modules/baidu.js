@@ -7,6 +7,7 @@ const state = {
   songs: [],
   total: 0,
   albumInfo: { songs: [], title: '', img: '', tags: [] },
+  songInfo: { name: '' },
 };
 
 const getters = {
@@ -21,6 +22,9 @@ const getters = {
   },
   albumInfo: () => {
     return state.albumInfo;
+  },
+  songInfo: () => {
+    return state.songInfo;
   }
 };
 
@@ -41,6 +45,12 @@ const actions = {
       commit(types.GET_ALBUM_INFO, albumInfo);
     });
   },
+  getSongInfo ({ commit, state }, songId) {
+    const url = `/api/bd/download/${songId}`;
+    axios.get(url).then(response => {
+      commit(types.GET_SONG_INFO, response.data);
+    });
+  },
 };
 
 const mutations = {
@@ -52,6 +62,9 @@ const mutations = {
   [types.GET_ALBUM_INFO](state, albumInfo) {
     state.albumInfo = albumInfo;
   },
+  [types.GET_SONG_INFO](state, songInfo) {
+    state.songInfo = songInfo;
+  }
 };
 
 export default {
