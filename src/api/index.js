@@ -1,9 +1,9 @@
 import Koa from 'koa';
 import serve from 'koa-static';
 import Logger from 'koa-logger';
-import mysql from 'koa-mysql';
 import send from 'koa-send';
-import path from 'path'
+import path from 'path';
+import mysql from 'mysql';
 import router from './controller';
 
 const app = new Koa();
@@ -17,6 +17,20 @@ app.use(async (ctx, next) => {
   }
   await next();
 });
-//const db = mysql.createPool({ user: 'root', password: '', database: 'test', host: 'localhost' });
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'abc123_',
+  database: 'my_music'
+});
+
+connection.connect((error) => {
+  if (error) {
+    console.log('connect to mysql failed:', error);
+  } else {
+    console.log('Connected to mysql!');
+  }
+});
 
 app.listen(7070);
