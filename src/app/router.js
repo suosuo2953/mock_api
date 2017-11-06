@@ -1,8 +1,8 @@
 import Vue from 'Vue';
 import VueRouter from 'vue-router';
-import BD_AlbumList from './pages/BD_AlbumList/index.vue';
+import BD_AlbumList from './pages/BaiduMusic/AlbumList/index.vue';
+import BD_AlbumDetail from './pages/BaiduMusic/AlbumDetail/index.vue';
 import About from './pages/About.vue';
-import BdSongList from './pages/BD/PlayList/PlayList.vue';
 
 const router = new VueRouter({
   mode: 'history',
@@ -18,7 +18,7 @@ const router = new VueRouter({
     },
     {
       path: '/bd/songlist/:albumId',
-      component: BdSongList,
+      component: BD_AlbumDetail,
     }
   ]
 });

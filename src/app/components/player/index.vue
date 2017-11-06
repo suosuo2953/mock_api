@@ -65,20 +65,19 @@
         interval: {},
       };
     },
-    props: [ 'audioInfo' ],
+    props: {
+      audioInfo: Object,
+      audioEnded: Function,
+    },
     mounted: function() {
+      const that = this;
       this.audio = document.getElementById("my-audio");
-      this.audio.ondurationchange = function () {
-      };
-      this.audio.onplaying  = function () {
-      };
-      this.audio.onplay   = function () {
-      };
       this.audio.onloadedmetadata = function () {
         this.max = parseInt(document.getElementById("my-audio").duration);
       };
       this.audio.onended  = function () {
         this.audioStatus = AUDIO_STATUS.ENDED;
+        that.audioEnded();
       };
       document.addEventListener("click", (event) => {
         const target = event.target;
@@ -93,13 +92,7 @@
         if (this.audioStatus === AUDIO_STATUS.INIT) {
           this.audioStatus = AUDIO_STATUS.PLAYING;
           this.audio.play();
-          this.interval = setInterval(() => { 
-            if (this.duration < this.audioInfo.time) {
-              ++this.duration;
-            } else {
-              clearInterval(this.interval);
-            }
-            }, 1000);
+          this.setProgressInterval();
         } else if(this.audioStatus === AUDIO_STATUS.PLAYING) {
           this.audioStatus = AUDIO_STATUS.PAUSE;
           this.audio.pause();
@@ -107,13 +100,7 @@
         } else if(this.audioStatus === AUDIO_STATUS.PAUSE) {
           this.audioStatus = AUDIO_STATUS.PLAYING;
           this.audio.play();
-          this.interval = setInterval(() => { 
-          if (this.duration < this.audioInfo.time) {
-            ++this.duration;
-          } else {
-            clearInterval(this.interval);
-          }
-          }, 1000);
+          this.setProgressInterval();
         } else if (this.audioStatus === AUDIO_STATUS.ENDED) {
           // TODO
         }
@@ -136,12 +123,29 @@
       playNext: function() {
 
       },
+      setProgressInterval: function() {
+        this.interval = setInterval(() =>
+          {
+            if (this.duration < this.audioInfo.time) {
+              ++this.duration;
+            } else {
+              clearInterval(this.interval);
+            }
+          }, 1000);
+      },
     },
-    beforeUpdate: function() {
-      console.log('....');
-      this.audioStatus = AUDIO_STATUS.INIT; 
-      clearInterval(this.interval);
-      this.duration = 0;
+    watch: {
+      audioInfo: function(newVal, oldVal) {
+        clearInterval(this.interval);
+        this.duration = 0;
+        this.audioStatus = AUDIO_STATUS.PLAYING;
+        const that = this;
+        setTimeout(function() {
+          that.audio.play();
+          that.setProgressInterval();
+        }, 0);
+        
+      },
     },
     components: { 'el-slider': Slider, 'vue-slider': VueSlider },
   }

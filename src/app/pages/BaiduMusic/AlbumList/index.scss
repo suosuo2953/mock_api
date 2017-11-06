@@ -1,0 +1,82 @@
+.home-page {
+  padding-top: 20px;
+  .cur-type {
+    font-size: 20px;
+    margin: 0 15px 0 60px;
+    height: 28px;
+    line-height: 28px;
+    vertical-align: top;
+  }
+  .boundary {
+    height: 2px;
+    background: #324157;
+    margin-top: 20px;
+  }
+  .play-list {
+    padding: 20px 0 0 60px; 
+    li {
+      position: relative;
+      a {
+        text-decoration: none;
+      }
+      .overlay {
+        display: none;
+        width: 140px;
+        height: 140px;
+        background: rgba(0, 0, 0, .5);
+        position: absolute;
+        top: 0;
+        .play-icon-wrapper {
+          text-align: center;
+          line-height: 40px;
+          width: 40px;
+          height: 40px;
+          border: 2px solid white;
+          border-radius: 50px;
+          margin: 0 auto;
+          margin-top: 50px;
+        }
+        .el-icon-caret-right {
+          color: white;
+        }
+      }
+      &:hover {
+        cursor: pointer; 
+        .overlay {
+          display: block;
+        }
+      }
+      width: 140px;
+      display: inline-block;
+      margin: 0 40px 15px 0;
+      vertical-align: top;
+      img {
+        width: 140px;
+        height: 140px;
+      }
+      .title{
+        margin-top: 5px;
+        span {
+          text-decoration: none;
+          color: black;
+          font-size: 14px;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  .bd-category-picker {
+    display: inline-block;
+  }
+  .pagination-container {
+    text-align: center;
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+  .switch {
+    float: right;
+    margin-right: 60px;
+  }
+}

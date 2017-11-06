@@ -21,6 +21,7 @@ const getAlbumInfo = async (ctx, next) => {
   return new Promise((resolve, reject) => {
     const albumId = ctx.params.albumId;
     const url = `${constants.BAIDU_ALBUM_DETAIL_URL}${albumId}`;
+    console.log('url:', url);
     request.get(url, (error, response, body) => {
       const album = parser.parseAlbumInfo(body);
       ctx.body = album;
@@ -39,14 +40,19 @@ const download = async (ctx, next) => {
       http.get(mp3Url, (res) => {
         let filename = decodeURIComponent(res.headers['content-disposition'].match(/filename="(.+)"/)[1]);
         filename = filename.replace(".mp3", "");
-        const filePath = `/src/media/${filename}${new Date().getTime()}.mp3`;
-        const file = fs.createWriteStream("." + filePath);
-        res.pipe(file);
-        file.on('finish', function() {
-          file.close(next);
+        const filePath = `/src/media/${filename}-${song.artistName}.mp3`;
+        if (fs.existsSync("." + filePath)) {
           ctx.body = { url: filePath, name: song.songName, singer: song.artistName, time: song.time, pic: song.songPicRadio };
           resolve();
-        });
+        } else {
+          const file = fs.createWriteStream("." + filePath);
+          res.pipe(file);
+          file.on('finish', function() {
+            file.close(next);
+            ctx.body = { url: filePath, name: song.songName, singer: song.artistName, time: song.time, pic: song.songPicRadio };
+            resolve();
+          });
+        }
       });
     });
   });
