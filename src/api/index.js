@@ -4,6 +4,8 @@ import Logger from 'koa-logger';
 import send from 'koa-send';
 import path from 'path';
 import mysql from 'mysql';
+import Sequelize from 'sequelize';
+import models from './models';
 import router from './controller';
 
 const app = new Koa();
@@ -18,19 +20,6 @@ app.use(async (ctx, next) => {
   await next();
 });
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'abc123_',
-  database: 'my_music'
+models.sequelize.sync().then(function() {
+  app.listen(7070);
 });
-
-connection.connect((error) => {
-  if (error) {
-    console.log('connect to mysql failed:', error);
-  } else {
-    console.log('Connected to mysql!');
-  }
-});
-
-app.listen(7070);

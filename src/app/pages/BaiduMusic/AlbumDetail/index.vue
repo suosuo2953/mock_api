@@ -48,7 +48,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import {  mapActions, mapGetters } from 'vuex'
   import { Button } from 'element-ui';
   import './index.scss';

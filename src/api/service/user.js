@@ -1,5 +1,10 @@
 
-const createUser = async (ctx, nect) => {
-
-
+const login = async (ctx, next) => {
+  ctx.body = 'Hello World!';
+  next();
 };
+
+export default {
+  login,
+};
+

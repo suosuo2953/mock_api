@@ -1,0 +1,53 @@
+.my-header {
+  background: #242424;
+  .wrapper {
+    width: 1100px;
+    margin: 0 auto;
+    .el-menu-tab {
+      background: #242424;
+      float: left;
+    }
+    .user-aciton {
+      float: right;
+      margin-top: 12px;
+    }
+  }
+  .login-dialog {
+    width: 400px !important;
+    .login-header {
+      padding: 24px 0 28px;
+      margin: 0 -24px;
+      background: #0f88eb;
+      text-align: center;
+      color: #fff;
+      h1 {
+        font-size: 24px;
+      }
+      h2 {
+        font-size: 14px;
+        margin-top: 5px;
+        line-height: 23px;
+      }
+    }
+    .login-body {
+      margin: 0 -24px;
+      padding: 30px 25px;
+      background: #ffffff;
+      .password {
+        margin-top: 20px;
+      }
+      .login-btn {
+        width: 100%;
+        margin-top: 20px;
+      }
+    }
+    .el-dialog__header {
+      position: absolute;
+      right: -70px;
+      top: -18px;
+    }
+    .el-dialog__body {
+      padding: 0;
+    }
+  }
+}

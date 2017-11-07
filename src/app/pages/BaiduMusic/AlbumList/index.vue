@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <div>
+    <div class="wrapper">
       <span class="cur-type">{{curType}}</span>
       <album-category-picker
         :categories="categories"
