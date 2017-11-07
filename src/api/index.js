@@ -3,9 +3,7 @@ import serve from 'koa-static';
 import Logger from 'koa-logger';
 import send from 'koa-send';
 import path from 'path';
-import mysql from 'mysql';
-import Sequelize from 'sequelize';
-import models from './models';
+import orm from 'orm';
 import router from './controller';
 
 const app = new Koa();
@@ -20,6 +18,15 @@ app.use(async (ctx, next) => {
   await next();
 });
 
-models.sequelize.sync().then(function() {
-  app.listen(7070);
-});
+orm.connectAsync("mysql://root:abc123_@localhost/my_music")
+  .then(db => {
+    db.load("./models", (err) => {
+      const User = db.models.User;
+    });
+    db.syncPromise();
+  })
+  .catch(err => {
+    console.error('Connection error: ' + err);
+  });
+
+app.listen(7070);
