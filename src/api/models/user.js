@@ -1,9 +1,16 @@
 const User = (db, cb) => {
-  db.define('user', {
-    username: String,
-    password: String,
+  return db.define('user', {
+    id: { type: 'serial', key: true },
+    username : { type: 'text', size: 100 },
+    password: { type: 'text', size: 100 },
+    createdAt : { type: 'date', required: true, time: true }
+  }, {
+    hooks: {
+      beforeValidation: function () {
+        this.createdAt = new Date();
+      }
+    },
   });
-  return cb();
 };
 
 export default User;
