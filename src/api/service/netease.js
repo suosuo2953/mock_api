@@ -1,19 +1,24 @@
 import request from 'request';
 import cheerio from 'cheerio';
-import parse from '../utils/neteaseParser';
+import constants from '../constants';
+import parser from '../utils/neteaseParser';
 
-const getHotSongs = async (ctx, next) => {
+const getAlbumList = async (ctx, next) => {
   return new Promise((resolve, reject) => {
-    const url = "http://music.163.com/discover/playlist";
+    const queryParam = ctx.request.query;
+    const cat = queryParam.cat || '';
+    const order = queryParam.order || '';
+    const limit = queryParam.limit || 20;
+    const offset = queryParam.offset || 20;
+    const url = `${constants.NETEASE_ALBUMS_URL}?cat=${encodeURIComponent(cat)}&order=${order}&limit=${limit}&offset=${offset}`;
     request.get(url, (error, response, body) => {
-      const songs = parse(body);
-      const data = { songs };
-      ctx.body = data;
+      const result = parser.parseAlbumList(body);
+      ctx.body = result;
       resolve();
     });
   });
 }
 
 export default {
-  getHotSongs
+  getAlbumList
 };

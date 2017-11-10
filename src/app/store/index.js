@@ -1,14 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import user from './modules/user';
-import baidu from './modules/baidu';
+import userStore from './modules/user';
+import baiduStore from './modules/baidu';
+import neteaseStore from './modules/netease';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  baidu,
   modules: {
-    baidu,
-    user,
+    baiduStore,
+    userStore,
+    neteaseStore,
   },
 });

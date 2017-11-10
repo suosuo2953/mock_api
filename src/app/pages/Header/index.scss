@@ -6,6 +6,9 @@
     .el-menu-tab {
       background: #242424;
       float: left;
+      a {
+        text-decoration: none;
+      }
     }
     .user-aciton {
       float: right;
