@@ -34,6 +34,11 @@ const parseAlbumList = (html) => {
   return { albums, categories, total };
 }
 
+const parseAlbumDetail = (html) => {
+
+};
+
 export default {
   parseAlbumList,
+  parseAlbumDetail,
 };

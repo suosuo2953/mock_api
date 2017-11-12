@@ -19,6 +19,18 @@ const getAlbumList = async (ctx, next) => {
   });
 }
 
+const getAlbumInfo = async (ctx, next) => {
+  return new Promise((resolve, reject) => {
+    const url = `${constants.NETEASE_ALBUM_DETAIL_URl}${ctx.params.albumId}`;
+    request.get(url, (error, response, body) => {
+      const result = parser.parseAlbumDetail(body);
+      ctx.body = result;
+      resolve();
+    });
+  });
+}
+
 export default {
-  getAlbumList
+  getAlbumList,
+  getAlbumInfo,
 };

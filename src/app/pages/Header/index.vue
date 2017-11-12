@@ -1,10 +1,10 @@
 <template>
   <div class="my-header">
     <div class="wrapper">
-      <el-menu :default-active="activeIndex" class="el-menu-tab" mode="horizontal">
-        <el-menu-item index="1"><a href="/baidu/albumlist">百度音乐</a></el-menu-item>
-        <el-menu-item index="2"><a href="/netease/albumlist">网易云音乐</a></el-menu-item>
-        <el-menu-item index="3"><a href="/xiami/albumlist">虾米音乐</a></el-menu-item>
+      <el-menu :default-active="activeIndex" class="el-menu-tab" mode="horizontal" @select="handleSelect">
+        <a href="/baidu/albumlist"><el-menu-item index="1">百度音乐</el-menu-item></a>
+        <a href="/netease/albumlist"><el-menu-item index="2">网易云音乐</el-menu-item></a>
+        <a href="/xiami/albumlist"><el-menu-item index="3">虾米音乐</el-menu-item></a>
       </el-menu>
       <div class="user-aciton">
         <el-button type="text" v-on:click="showLoginPop=true">登录</el-button>
@@ -51,6 +51,9 @@
       ...mapActions({
         login: 'login',
       }),
+      handleSelect: function(key, keyPath) {
+        console.log(key, keyPath);
+      },
     }
   };
 </script>

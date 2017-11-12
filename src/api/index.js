@@ -12,7 +12,7 @@ app.use(bodyParser());
 app.use(router.routes());
 
 dbConnect((args, db) => {
-  if (!app.context.dbContainer) {
+  if (!app.context.models) {
     app.context.models = db.models;
   }
 });
